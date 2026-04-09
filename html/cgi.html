@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>TeamRequette's Webserv - CGI</title>
+	<link rel="stylesheet" href="css/style/style.css">
+</head>
+<body>
+	<div class="header">
+		<h1>CGI</h1>
+	</div>
+
+	<br>
+
+	<div class="container">
+		<h2>GET Method</h2>
+		<p>Click the button below to test the CGI with GET request</p>
+		<a href="/cgi.sh" class="button">CLICK HERE FOR CGI (GET)</a>
+	</div>
+	<br>
+
+	<div class="container">
+		<h2>Infinit loop</h2>
+		<p>Click the button below to test the CGI with a cgi that infinite loop</p>
+		<a href="/a.out" class="button">CLICK HERE FOR LOOP</a>
+	</div>
+
+	<div class="container">
+		<h2>CGI TESTER</h2>
+		<p>Click the button below to test the CGI with the CGI tester</p>
+		<a href="/cgi_tester.cgi" class="button">CLICK HERE FOR CGI TESTER</a>
+	</div>
+
+	<br>
+
+	<div class="container">
+		<h2>POST Method</h2>
+		<p>Fill in the form below and submit to test the CGI with POST request</p>
+		<form action="/my_cgi.py" method="post">
+			<div>
+				<label for="name">Enter your name&nbsp;:</label>
+				<input type="text" name="name" id="name" required/>
+			</div>
+
+			<div>
+				<label for="password">Enter your password&nbsp;:</label>
+				<input type="password" name="password" id="password" required/>
+			</div>
+
+			<div>
+				<label for="phone">Enter your phone number&nbsp;:</label>
+				<input type="tel" id="phone" name="phone" pattern="[0-9]{1}" required/>
+			</div>
+
+			<div>
+				<label for="email">Enter your email&nbsp;:</label>
+				<input type="text" name="email" id="email" required/>
+			</div>
+
+			<div>
+				<button type="submit">Submit Form (POST)</button>
+			</div>
+		</form>
+	</div>
+
+	<div>
+		<a class="button2" href="/index.html"> Back</a>
+	</div>
+	
+</body>
+</html>

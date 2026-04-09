@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="fr">
+	<head>
+		<link rel="stylesheet" href="css/style/style.css">
+		<meta charset="UTF-8">
+		<title>TeamRequette's Webserv - Post</title>
+	</head>
+	<body>
+		<form action="" method="post">
+			<div>
+				<h5>
+					Fill the form below to send data to the server
+				</h5>
+				<br></br>
+			</div>
+			<div>
+				<label for="name">Enter your name&nbsp;:</label>
+				<input type="text" name="session_NAME" id="name" required/>
+			</div>
+			<div>
+			<label for="password">Enter your password&nbsp;:</label>
+			<input type="password" name="password" id="password" required/>
+			</div>
+			<div>
+				<label for="phone">Enter your phone number&nbsp;:</label>
+			<input
+			type="tel"
+			id="phone"
+			name="phone"
+			pattern="[0-9]{1}"
+			required
+			/>
+
+			</div>
+			<div>
+			<label for="email">Enter your email&nbsp;:</label>
+			<input type="text" name="email" id="email" required/>
+			</div>
+			<div>
+				<input type="submit" name="Register" value="Register" class="button2">
+			</div>
+		</form>
+		</div>
+			<div>
+				<a class="button2" href="/index.html"> Back</a>
+			</div>
+	</body>
+
+</html>

@@ -1,35 +1,44 @@
-#include <unistd.h>
-#include <poll.h>
-#include <cstdio>
-#include <iostream>
-#include <sys/socket.h>
-#include <fcntl.h>
-#include <netinet/in.h>
+// #include "../includes/webserv.hpp"
+#include "ConfigParser.hpp"
+#include "webserv.hpp"
+#include "WebServer.hpp"
+#include <vector>
+#include <csignal>
+#include <cstdlib>
 
-int main(int ac, char **av)
+int g_sig;
+
+void exceptionManager(std::exception *e, int &returnValue)
 {
-	(void)ac, (void)av;
-	int clientSocket[10];
-	while(1)
+	if (dynamic_cast<ExceptionSignal *>(e))
 	{
-		int i = 0;
-		// pollfd fds;
-		// poll(fds, );
-		int socketFd = socket(AF_INET, SOCK_STREAM, 0);
-		sockaddr_in serverAddress;
-		serverAddress.sin_family = AF_INET;
-		serverAddress.sin_addr.s_addr = INADDR_ANY;
-		serverAddress.sin_port = htons(8080);
-		bind(socketFd, (struct sockaddr*)&serverAddress, sizeof(serverAddress));
-		listen(socketFd, 1024);
-		clientSocket[i] = accept(socketFd, 0, 0);
-		fcntl(clientSocket[i], O_NONBLOCK);
-		char buffer[2000] = {0};
-		recv(clientSocket[i], buffer, sizeof(buffer), 0);
-		// buffer[size] = 0;
-		std::cout << buffer << "\n";
-		close(socketFd);
-		i++;
+		std::cerr << "\n";
+		returnValue = g_sig;
 	}
+	std::cerr << BOLD RED << e->what() << END << std::endl;
+}
 
-}	
+#define CONFIG_PATH "./config/default.conf"
+
+int main(int argc, char *argv[])
+{	
+	int returnValue = 0;
+
+	signal(SIGINT, sigHandlerDefault);
+	signal(SIGPIPE, SIG_IGN);
+	try
+	{
+		std::string		configFilePath = (argc > 1 ? argv[1] : CONFIG_PATH);
+		ConfigParser	parser;
+		WebServer		webServer(parser.parseFile(configFilePath));
+
+		// webServer.display();
+		webServer.init();
+		webServer.run();
+	}
+	catch (std::exception &e)
+	{
+		exceptionManager(&e, returnValue);
+	}
+	return (returnValue);
+}

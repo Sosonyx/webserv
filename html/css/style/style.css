@@ -1,0 +1,88 @@
+@import url("theme");
+@import url("font");
+
+	* {			margin: 0;
+		padding: 0;
+		box-sizing: border-box;
+	}
+
+	body {
+		min-height: 100vh;
+		display: flex;
+		align-items: center;
+		min-height: 100vh;
+		flex-direction: column;
+		justify-content: center;	
+		padding: 50px 20px;
+		
+	}
+
+	label, input {
+			display: table-cell;
+			margin-bottom: 10px;
+	}
+
+	p {
+		color: #666;
+		font-size: 1.1em;
+		margin-bottom: 30px;
+		line-height: 1.6;
+	}
+
+	.button2 {
+		display: block;
+		width: fit-content;
+		padding: 12px 30px;
+		background: linear-gradient(135deg, #27182a 0%, #3d1e1e 100%);
+		color: white;
+		text-decoration: none;
+		border-radius: 5px;
+		transition: transform 0.3s, box-shadow 0.3s;
+		margin: 10px auto;
+	}
+	.button2:hover {
+		display: inline-block;
+		padding: 12px 30px;
+		background: linear-gradient(135deg, #3a342b 0%, #3d1e1e 100%);
+		color: white;
+		text-decoration: none;
+		border-radius: 5px;
+		transition: transform 0.3s, box-shadow 0.3s;
+		margin: 10px;
+	}
+
+	.uploadDiv {
+		margin-left: 100px;
+	}
+
+	img {
+		margin: auto;
+		margin-left: 20px;
+		width: 400px;
+		height: 400px;
+		animation: spin 3s linear infinite;
+	}
+	@keyframes spin{
+		from{
+			transform: rotate(0deg);
+		}
+		to{
+			transform: rotate(360deg);
+		}
+	}
+
+	.hbox {
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+		flex-direction: row;
+	}
+
+	.centerbox {
+		display: flex;
+		justify-content: center;
+		margin-top: 150px;
+	}
+
+
+
