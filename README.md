@@ -42,7 +42,7 @@ TL;DR: Build a web server from scratch.
 > - Classes and OOP principles required.  
 > - Only allowed functions.
 
-**Contributors** : Sosonyx
+**Contributors** : @Thermow, @theofiette 
 
 ---
 
