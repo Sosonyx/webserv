@@ -1,530 +1,706 @@
-# WebServ Project
+# WebServ - HTTP Server
 
-  <p align="center">
-    For further information about 42cursus and its projects, see <a href="https://42.fr/le-campus-de-paris/diplome-informatique/"><b>42school</b></a>.
-  </p>
-  
-  <p>
-    <img src="https://img.shields.io/badge/language-C%2B%2B-blue?style=for-the-badge" />
-    <img src="https://img.shields.io/github/repo-size/Sosonyx/webserv?style=for-the-badge&logo=github">
-    <img src="https://img.shields.io/github/languages/count/Sosonyx/webserv?style=for-the-badge" />
-    <img src="https://img.shields.io/github/languages/top/Sosonyx/webserv?style=for-the-badge" />
-    <img src="https://img.shields.io/github/last-commit/Sosonyx/webserv?style=for-the-badge" />
-  </p>
+<div align="center">
 
- <div align="center" style="font-size:1.3em; line-height:2;">
-  <span><a href="#about-project" style="text-decoration:none; color:inherit;">📜 About Project</a></span>
-  &nbsp;•&nbsp;
-  <span><a href="#mandatory-part" style="text-decoration:none; color:inherit;">🔷 Mandatory Part</a></span>
-  &nbsp;•&nbsp;
-  <span><a href="#bonus-part" style="text-decoration:none; color:inherit;">🌟 Bonus Part</a></span>
-  &nbsp;•&nbsp;
-  <span><a href="#usage" style="text-decoration:none; color:inherit;">👨‍💻 Usage</a></span>
+*This project has been created as part of the 42 curriculum.*
+
+[![Language](https://img.shields.io/badge/language-C%2B%2B-blue?style=for-the-badge)](https://cplusplus.com/)
+[![C++ Standard](https://img.shields.io/badge/C%2B%2B-98-blue?style=for-the-badge)](https://en.cppreference.com/)
+[![License](https://img.shields.io/badge/license-MIT-green?style=for-the-badge)](LICENSE)
+
 </div>
 
 ---
 
-## <a name="about-project"></a>📜 About Project
+Contributors: @theofiette, @Thermow
 
-> 42 School WebServ project: Create a minimal HTTP/1.1 web server inspired by **NGINX**.  
-> Learn **socket programming**, **HTTP protocol**, **I/O multiplexing**, and **connection management**.
+## 📜 Description
 
-```
-TL;DR: Build a web server from scratch.  
-- Parse HTTP requests and generate responses.  
-- Handle multiple client connections concurrently.  
-- Serve static files and execute CGI scripts.  
-- Support virtual hosts and custom configurations.
-```
+WebServ is a from-scratch implementation of an **HTTP/1.1 web server** written in **C++98**. This project demonstrates a deep understanding of network programming, the HTTP protocol, non-blocking I/O multiplexing, and concurrent connection management.
 
-> [!NOTE]    
-> - Norminette compliant C++98 code.  
-> - Classes and OOP principles required.  
-> - Only allowed functions.
+The server is production-oriented with features including:
+- **Non-blocking socket architecture** using `poll()` for I/O multiplexing
+- **Session management** with cookie-based SessionId tracking
+- **Dynamic theme and font switching** via client-side cookies
+- **CGI script execution** (Python, Bash, etc.)
+- **File upload handling**
+- **Multiple virtual servers** on different ports with independent configurations
+- **State machine-based connection handling** for robust request processing
 
-**Contributors** : @Thermow, @theofiette 
+You can open the website directly in your browser at `http://127.0.0.1:8080` and interact with a fully functional web interface.
 
 ---
 
-## <a name="mandatory-part"></a>🔷 Mandatory Part
+## 🚀 Features
 
-A **fully functional HTTP/1.1 web server** supporting:
+### Core HTTP Features
 
-### Core Features
+| Feature | Status | Description |
+|---------|:------:|-------------|
+| **GET Method** | ✅ | Retrieve files and resources |
+| **POST Method** | ✅ | Submit forms and upload files |
+| **DELETE Method** | ✅ | Remove resources from server |
+| **HEAD Method** | ✅ | Retrieve headers without body |
+| **HTTP/1.1 Protocol** | ✅ | Full HTTP/1.1 compliance |
+| **Keep-Alive** | ✅ | Persistent connections (configurable) |
+| **Static File Serving** | ✅ | HTML, CSS, JavaScript, images, etc. |
+| **Error Pages** | ✅ | Custom error pages (404, 403, 500, etc.) |
+| **Redirections** | ✅ | HTTP 301/302/307/308 redirects |
 
-- **HTTP Protocol**: Parse HTTP/1.1 requests (GET, POST, DELETE)
-- **Socket Programming**: Create TCP/IP sockets and listen for connections
-- **Connection Handling**: 
-  - Accept and manage multiple client connections
-  - Handle concurrent requests without threads
-  - Properly close connections and manage file descriptors
-- **Response Generation**: Build valid HTTP responses with headers and body
-- **Static File Serving**:
-  - Serve HTML, CSS, JavaScript, images, and other static assets
-  - Directory listing capabilities
-  - File type detection (MIME types)
-- **Request Methods**:
-  - `GET` - retrieve files and resources
-  - `POST` - submit data and forms
-  - `DELETE` - remove files from server
-- **Redirections**: HTTP 301/302/307/308 redirects
-- **Configuration File**:
-  - Define multiple servers (virtual hosts)
-  - Set root directory, ports, and server names
-  - Configure upload directories
-  - Define allowed HTTP methods per location
-- **CGI Execution**:
-  - Execute CGI scripts (PHP, Python, Bash, etc.)
-  - Pass environment variables to scripts
-  - Capture and return script output
-- **Error Handling**:
-  - HTTP error pages (400, 403, 404, 405, 413, 500, 501, etc.)
-  - Custom error pages support
-- **Chunked Transfer Encoding**: Handle client uploads properly
+### Advanced Features
 
-### Program Behavior
+| Feature | Status | Description |
+|---------|:------:|-------------|
+| **Sessions** | ✅ | ServerSide session management via SessionId cookie |
+| **Theme System** | ✅ | Dynamic theme switching (dark, white, yellow, horror, etc.) |
+| **Font System** | ✅ | Multiple font options (arial, horror, etc.) |
+| **Cookie Support** | ✅ | Full cookie parsing and management |
+| **CGI Execution** | ✅ | Run CGI scripts (.py, .sh, .cgi, .out) |
+| **File Upload** | ✅ | Configurable upload directories and limits |
+| **Virtual Hosts** | ✅ | Multiple servers on different ports |
+| **Non-Blocking I/O** | ✅ | Single poll() for all I/O operations |
+| **Connection Timeouts** | ✅ | Configurable request and CGI timeouts |
+| **Directory Listing** | ✅ | Autoindex for directory browsing |
 
-```
-The server starts and reads configuration file.
-Server binds to specified ports and listens for connections.
-Accepts incoming client requests.
-Parses HTTP headers and request body.
-Processes request and generates appropriate response.
-Sends response back to client.
-Manages connection (keep-alive or close).
-Process repeats until server shutdown.
-```
+---
 
-### Example Usage
+## 📋 Requirements
+
+- **C++ Compiler**: GCC/Clang with C++98 support
+- **Language Standard**: C++98 (compiles with `-std=c++98` flag)
+- **Build Tool**: GNU Make
+- **System**: Unix/Linux (tested on Linux)
+- **Compilation Flags**: `-Wall -Wextra -Werror -std=c++98`
+
+### Dependencies
+
+No external libraries or Boost allowed. All functionality implemented from scratch using POSIX APIs:
+- `poll()` - I/O multiplexing
+- `socket()`, `bind()`, `listen()`, `accept()` - Socket operations
+- `fork()`, `execve()` - CGI execution (process management)
+- `select()` alternative to `poll()` is supported
+- `fcntl()` on macOS for non-blocking mode
+
+---
+
+## 📦 Installation & Compilation
+
+### Clone and Build
 
 ```bash
-$ ./webserv
-# Listening on port 8080...
-
-# In another terminal:
-$ curl http://localhost:8080/
-$ curl -X POST -d "name=value" http://localhost:8080/cgi-bin/script.php
-$ curl -X DELETE http://localhost:8080/uploads/file.txt
+$ git clone <repository_url> webserv
+$ cd webserv
+$ make
 ```
 
-### Configuration File Example
+The executable `webserv` will be created in the project root.
+
+### Build Rules
+
+```bash
+$ make              # Build the project
+$ make clean        # Remove object files
+$ make fclean       # Remove all generated files
+$ make re           # Rebuild from scratch
+```
+
+---
+
+## 🎯 Usage
+
+### Running the Server
+
+```bash
+# Using default configuration file (config/default.conf)
+$ ./webserv
+
+# Using custom configuration file
+$ ./webserv config/multipleServer.conf
+```
+
+The server will start listening on the ports defined in the configuration file (default: port 8080).
+
+### Accessing the Server
+
+**In your browser:**
+```
+http://127.0.0.1:8080
+http://127.0.0.1:8081
+```
+
+**Via command line:**
+```bash
+# GET request
+$ curl http://127.0.0.1:8080/
+
+# POST form submission
+$ curl -X POST -d "username=John&theme=dark" http://127.0.0.1:8080/
+
+# HEAD request (headers only)
+$ curl -I http://127.0.0.1:8080/
+
+# DELETE file
+$ curl -X DELETE http://127.0.0.1:8080/todelete/file1.html
+
+# Upload file
+$ curl -F "file=@image.png" http://127.0.0.1:8080/upload/
+```
+
+### Example Browser Interaction
+
+1. **Navigate to** `http://127.0.0.1:8080/`
+2. **Submit your username** via the POST form
+3. A session is created with a `SessionId` cookie stored server-side
+4. **Switch themes** (dark, white, yellow, horror) - preference saved in session
+5. **Select fonts** (arial, horror) - preference saved in session
+6. **Upload files** to `http://127.0.0.1:8080/upload/`
+7. **View uploaded files** and delete them if allowed
+
+---
+
+## ⚙️ Configuration File
+
+The server uses a **NGINX-inspired configuration format**. Multiple servers can be defined, each listening on specific ports with independent settings.
+
+### Configuration Structure
 
 ```nginx
+# Global settings
+max_clients 1024;
+
+global {
+    location_cookie      off;      # Global cookie handling
+    location_method      on;       # Method restriction support
+    location_root        html;     # Default root directory
+    location_index       index.html; # Default index file
+    location_autoindex   on;       # Directory listing
+    redir_valid          off;      # Validate redirects
+    redir_errorcode      301;      # Default redirect code
+    redir_path           /index.html; # Redirect path
+}
+
+# Server 1: Main server with full features
 server {
-    listen       8080;
-    server_name  localhost;
+    listen               8080;
+    name                 127.0.0.1;
+    client_body_max      500000;   # Max upload size (500KB)
     
-    root         /var/www/html;
-    index        index.html index.htm;
+    # Error pages
+    error_page           html/errors/error.html;
+    error_page 404       html/errors/404_error.html;
+    error_page 403       html/errors/403_error.html;
     
-    client_max_body_size 1m;
+    # Root location - serves static files
+    location / {
+        root             html;
+        index            index.html;
+        upload           upload/pictures/;
+        methods          GET POST on DELETE off;
+    }
+    
+    # CGI location - execute scripts
+    location /cgi {
+        root             cgi;
+        index            my_cgi.py;
+        cgi              .py .sh .cgi .out;
+        methods          GET POST on DELETE off;
+    }
+    
+    # Style location - serve CSS with session cookies
+    location /style {
+        root             html/css/style;
+        index            style.css;
+        cookie           on;
+        methods          GET POST on DELETE off;
+    }
+    
+    # Theme location - theme switcher
+    location /theme {
+        root             html/css/style/theme;
+        index            theme.css;
+        cookie           on;
+        methods          GET POST on DELETE off;
+    }
+    
+    # Font location - font switcher
+    location /font {
+        root             html/css/style/font;
+        index            font.css;
+        cookie           on;
+        methods          GET POST on DELETE off;
+    }
+}
+
+# Server 2: Restricted methods server
+server {
+    listen               8080;
+    name                 127.0.0.2;
+    client_body_max      200000;
     
     location / {
-        allow_methods GET;
+        root             html;
+        index            methods.html;
+        methods          GET on POST off DELETE off;
     }
     
     location /upload {
-        allow_methods POST;
-        client_max_body_size 10m;
+        root             html;
+        upload           upload/pictures/;
+        methods          POST on GET off DELETE off;
+    }
+}
+
+# Server 3: DELETE-enabled server
+server {
+    listen               8081;
+    name                 127.0.0.3;
+    client_body_max      300000;
+    
+    location / {
+        root             html;
+        index            post.html;
+        methods          GET POST on DELETE off;
     }
     
-    location /cgi-bin {
-        allow_methods GET POST;
-        cgi_pass     /usr/bin/php-cgi;
+    location /todelete {
+        root             html;
+        autoindex        on;
+        methods          DELETE on;
     }
-    
-    error_page 404 /404.html;
 }
 ```
 
----
+### Configuration Parameters
 
-## <a name="bonus-part"></a>🌟 Bonus Part
+#### Server-Level
+- `listen PORT` - Port to listen on
+- `name HOST` - Server name/host binding
+- `client_body_max SIZE` - Maximum request body size in bytes
+- `error_page [CODE] FILE` - Error page file path
 
-Advanced web server features:
-
-### Bonus Features
-
-- **Keep-Alive Connections**: 
-  - Reuse TCP connections for multiple requests
-  - Configurable timeout values
-  - Automatic connection closure
-  
-- **Multiple Servers**:
-  - Listen on multiple ports simultaneously
-  - Support for different hostnames
-  - Port-based and name-based virtual hosting
-  
-- **Advanced Configuration**:
-  - Location-based routing and settings
-  - Alias and rewrite rules
-  - Custom directory index pages
-  - Autoindex (directory listing) on/off
-  
-- **Full CGI Support**:
-  - Execute any CGI script
-  - Proper environment variable setup
-  - Request/response piping
-  - Timeout handling for long-running scripts
-  
-- **Security Features**:
-  - Custom error pages for better UX
-  - Request timeout handling
-  - Large file upload protection
-  - Access control per location
-  
-- **HTTP/1.1 Compliance**:
-  - Persistent connections
-  - Chunked transfer encoding
-  - Proper status codes
-  - Standard HTTP headers
-  
-- **Advanced I/O**:
-  - Non-blocking socket operations
-  - select/poll/epoll multiplexing
-  - Efficient request parsing
-  - Streaming file serving
-
-### Example Bonus Usage
-
-```bash
-# Keep-alive connections
-$ curl -v http://localhost:8080/file1.html http://localhost:8080/file2.html
-
-# Virtual hosts
-$ curl -H "Host: api.example.com" http://localhost:8080/endpoint
-$ curl -H "Host: www.example.com" http://localhost:8080/
-
-# CGI script execution
-$ curl http://localhost:8080/cgi-bin/time.sh
-
-# File upload with progress
-$ curl -X POST -F "file=@large.zip" http://localhost:8080/upload
-
-# Directory listing
-$ curl http://localhost:8080/files/
-```
+#### Location-Level
+- `root PATH` - Root directory for this location
+- `index FILE` - Default file to serve
+- `upload DIR` - Directory for file uploads
+- `methods METHOD on/off` - HTTP methods (GET, POST, DELETE, HEAD)
+- `cgi .EXT` - CGI extensions to execute
+- `cookie on/off` - Enable cookie support for this location
+- `autoindex on/off` - Directory listing
 
 ---
 
-## <a name="usage"></a>👨‍💻 Usage
+## 🏗️ Architecture
 
-### Requirements
-
-- C++ language (C++98)
-- GCC/Clang compiler with C++98 support
-- Linux/Unix system with POSIX compliance
-- Standard C++ library
-
-### Compiling the Program
-
-**Mandatory Part:**
-
-```shell
-$ cd path/to/webserv && make
-```
-
-**Bonus Part:**
-```shell
-$ cd path/to/webserv && make bonus
-```
-
-### Running the Program
-
-**Default configuration:**
-```shell
-$ ./webserv
-# or with custom config file
-$ ./webserv config/webserv.conf
-```
-
-**With custom port:**
-```shell
-$ ./webserv config/webserv.conf
-```
-
-### Example Session
-
-```shell
-$ ./webserv config/webserv.conf
-WebServ listening on ports: 8080, 8081
-Press Ctrl+C to shutdown...
-
-# In another terminal:
-$ curl http://localhost:8080/
-<!DOCTYPE html>
-<html>
-<head><title>Welcome</title></head>
-<body><h1>Welcome to WebServ</h1></body>
-</html>
-
-$ curl -X POST -d "name=John" http://localhost:8080/submit
-Success: Data received
-
-$ curl -X DELETE http://localhost:8080/uploads/temp.txt
-File deleted successfully
-
-$ curl http://localhost:8080/nonexistent
-<html><body><h1>404 Not Found</h1></body></html>
-```
-
----
-
-## <a name="project-structure"></a>📁 Project Structure
+### Project Structure
 
 ```
 webserv/
-├── Makefile                     # Build configuration
-├── README.md                    # This file
-├── webserv.conf                 # Default configuration
-├── includes/                    # Header files
-│   ├── WebServ.hpp
-│   ├── Server.hpp
-│   ├── Client.hpp
-│   ├── Request.hpp
-│   ├── Response.hpp
-│   ├── ConfigParser.hpp
+├── Makefile                          # Build configuration
+├── webserv                           # Compiled executable
+├── config/                           # Configuration files
+│   ├── default.conf                  # Default server config
+│   ├── multipleServer.conf           # Multi-server example
+│   └── supression.supp               # Valgrind suppressions
+├── includes/                         # Header files
+│   ├── WebServer.hpp                 # Main server class
+│   ├── Server.hpp                    # Individual server
+│   ├── Connection.hpp                # Connection state machine
+│   ├── ConnectionManager.hpp         # Connection manager
+│   ├── Request.hpp                   # HTTP request parsing
+│   ├── Response.hpp                  # HTTP response generation
+│   ├── Cgi.hpp                       # CGI execution
+│   ├── ConfigParser.hpp              # Config file parser
+│   ├── Session.hpp                   # Session management
+│   ├── SessionManager.hpp            # Session registry
+│   ├── Location.hpp                  # Location configuration
+│   ├── UploadHandler.hpp             # File upload handling
 │   └── ...
-├── srcs/                        # Source files
-│   ├── main.cpp
-│   ├── WebServ.cpp             # Main server class
-│   ├── Server.cpp              # Individual server instances
-│   ├── Client.cpp              # Client connection handling
-│   ├── Request.cpp             # HTTP request parsing
-│   ├── Response.cpp            # HTTP response generation
-│   ├── ConfigParser.cpp        # Configuration file parser
-│   ├── CGI.cpp                 # CGI script execution
-│   └── utils/                  # Utility functions
-├── www/                         # Static website files
-│   ├── index.html
-│   ├── 404.html
-│   ├── 50x.html
+├── srcs/                             # Source files
+│   ├── main.cpp                      # Entry point
+│   ├── Server/
+│   │   ├── WebServer.cpp             # Main server loop
+│   │   ├── Config/
+│   │   │   ├── ConfigParser.cpp      # Parse config files
+│   │   │   ├── Server.cpp            # Server configuration
+│   │   │   ├── Location.cpp          # Location configuration
+│   │   │   └── Redir.cpp             # Redirection handling
+│   │   ├── Connections/
+│   │   │   ├── ConnectionManager.cpp # Manage all connections
+│   │   │   └── Connection.cpp        # Individual connection (state machine)
+│   │   ├── RequestGestion/
+│   │   │   ├── Request.cpp           # Parse HTTP requests
+│   │   │   ├── Response.cpp          # Build HTTP responses
+│   │   │   ├── Session.cpp           # Session data
+│   │   │   └── SessionManager.cpp    # Session registry
+│   │   ├── CGI/
+│   │   │   └── Cgi.cpp               # Execute CGI scripts
+│   │   ├── Upload/
+│   │   │   └── UploadHandler.cpp     # Handle file uploads
+│   │   └── Helpers/Time/
+│   │       └── TimeoutTracker.cpp    # Request timeouts
+│   ├── exceptions/
+│   │   └── exceptions.cpp            # Custom exceptions
+│   ├── signal/
+│   │   └── signal.cpp                # Signal handling
+│   └── utils/
+│       ├── wrapper.cpp               # Function wrappers
+│       ├── format.cpp                # String formatting
+│       └── safemath.cpp              # Safe math operations
+├── html/                             # Static website files
+│   ├── index.html                    # Home page with session demo
+│   ├── session.html                  # Session information page
+│   ├── post.html                     # POST form example
+│   ├── upload.html                   # File upload form
+│   ├── delete.html                   # DELETE form example
+│   ├── cookies.html                  # Cookie demo
+│   ├── cgi.html                      # CGI execution example
+│   ├── methods.html                  # HTTP methods reference
+│   ├── get.html                      # GET example
+│   ├── success.html                  # Success page
 │   ├── css/
-│   ├── js/
-│   └── uploads/
-└── cgi-bin/                     # CGI scripts
-    ├── script.php
-    ├── time.sh
-    └── ...
+│   │   └── style/
+│   │       ├── style.css             # Main stylesheet
+│   │       ├── theme/                # Theme files
+│   │       │   ├── dark.css          # Dark theme
+│   │       │   ├── white.css         # Light theme
+│   │       │   ├── yellow.css        # Yellow theme
+│   │       │   ├── horror.css        # Horror theme
+│   │       │   └── theme.css         # Default theme
+│   │       └── font/                 # Font files
+│   │           ├── arial.css         # Arial font
+│   │           ├── horror.css        # Horror font
+│   │           └── font.css          # Default font
+│   ├── medias/images/                # Images
+│   ├── errors/                       # Error pages
+│   │   ├── 404_error.html
+│   │   ├── 403_error.html
+│   │   ├── 415_error.html
+│   │   ├── 500_error.html
+│   │   └── error.html
+│   └── todelete/                     # Test files for DELETE
+├── cgi/                              # CGI scripts
+│   ├── my_cgi.py                     # Python CGI example
+│   ├── cgi.sh                        # Bash CGI example
+│   └── SessionProofCGI.sh            # Session proof CGI
+└── upload/pictures/                  # Upload directory
 ```
 
----
+### Connection State Machine
 
-## 🌊 Non-Blocking I/O and Socket Management
-
-A key concept in WebServ is managing **multiple concurrent connections** without threads using **non-blocking sockets** and **I/O multiplexing**.
-
-### What is Non-Blocking I/O?
-
-Non-blocking sockets allow your program to **check if data is available** without waiting indefinitely. Combined with **multiplexing** (`select`, `poll`, `epoll`), you can handle thousands of concurrent connections.
-
-### Event Loop Architecture
+The core of the server is a **robust state machine** that manages each connection through its lifecycle:
 
 ```
-┌─────────────────────────────────────┐
-│   Initialize Server & Listen        │
-└────────────┬────────────────────────┘
-             │
-             ▼
-┌─────────────────────────────────────┐
-│   Set up Select/Poll/Epoll          │
-│   (Monitor all file descriptors)    │
-└────────────┬────────────────────────┘
-             │
-             ▼
-┌─────────────────────────────────────┐
-│   Wait for Events (timeout)         │
-│   (Connection request, data ready)  │
-└────────────┬────────────────────────┘
-             │
-        ┌────┴────┐
-        ▼         ▼
-    ┌────────┐ ┌────────────┐
-    │ Accept │ │ Read/Write │
-    │ new    │ │ existing   │
-    │client  │ │connections│
-    └────────┘ └────────────┘
-        │         │
-        └────┬────┘
-             │
-             ▼
-    ┌──────────────────────┐
-    │ Process HTTP Request │
-    │ Generate Response    │
-    │ Handle CGI if needed │
-    └──────────────────────┘
-             │
-             ▼
-    ┌──────────────────────┐
-    │ Send Response Data   │
-    │ Manage Connections   │
-    └──────────────────────┘
-             │
-             └──────────────┐
-                            ▼
-                      (Loop back to select)
+┌─────────────────────────────────────────────────────────────────┐
+│                    CONNECTION STATE MACHINE                     │
+└─────────────────────────────────────────────────────────────────┘
+
+                              ┌─────────────┐
+                              │   CS_NONE   │ ← Connection accepted
+                              └──────┬──────┘
+                                     │ (POLLIN + data available)
+                                     ▼
+                              ┌──────────────────┐
+                              │  CS_BUFFERING    │ ← Receive request chunks
+                              └──────┬───────────┘
+                                     │ (Complete request received)
+                                     ▼
+                              ┌──────────────────┐
+                              │  CS_PARSING      │ ← Parse HTTP headers
+                              └──────┬───────────┘
+                                     │ (Headers parsed)
+                                     ▼
+                              ┌──────────────────┐
+                              │  CS_WRITING      │ ← Process request
+                              └──────┬───────────┘
+                                     │
+                        ┌────────────┴──────────────┐
+                        │                           │
+                  (Is CGI?)                    (Not CGI)
+                        │                           │
+                        ▼                           ▼
+              ┌───────────────────┐      ┌──────────────────┐
+              │  CS_LAUNCH_CGI    │      │  CS_SENDING      │ ← Send response
+              └─────────┬─────────┘      └──────┬───────────┘
+                        │                       │ (POLLOUT + writable)
+                        ▼                       ▼
+              ┌───────────────────┐
+              │   CS_WAIT_CGI     │ ← Wait for CGI output
+              └─────────┬─────────┘
+                        │ (CGI done)
+                        ▼
+              ┌───────────────────┐
+              │   CS_SENDING      │ ← Send CGI response
+              └─────────┬─────────┘
+                        │ (Response sent)
+                        ▼
+                  ┌──────────────┐
+                  │   CS_KEEP    │ ← Keep-alive or close?
+                  └──────┬───────┘
+                         │
+            ┌────────────┴────────────┐
+            │                         │
+      (Keep-Alive)            (Close connection)
+            │                         │
+            ▼                         ▼
+        CS_NONE ──────────→ ┌─────────────────┐
+                            │   CS_CLOSE      │
+                            └─────────────────┘
+                                     │
+                                     ▼
+                            (Connection destroyed)
+
+States:
+- CS_NONE       : Initial state, waiting for data
+- CS_BUFFERING  : Receiving request data from client
+- CS_PARSING    : Parsing HTTP request headers
+- CS_WRITING    : Processing request, preparing response
+- CS_LAUNCH_CGI : Fork and execute CGI script
+- CS_WAIT_CGI   : Wait for CGI output via pipe
+- CS_SENDING    : Sending response to client
+- CS_KEEP       : Deciding keep-alive vs close
+- CS_CLOSE      : Cleanup and connection termination
 ```
 
-### Select-Based Implementation
+### Non-Blocking I/O Architecture
+
+The server uses **single `poll()` call** to manage all I/O operations:
 
 ```cpp
-while (server_running)
-{
-    FD_ZERO(&read_set);
-    FD_ZERO(&write_set);
+// Main event loop (simplified)
+while (server_running) {
+    // Add all sockets to poll set
+    std::vector<pollfd> fds;
     
-    // Add server socket to listen for new connections
-    FD_SET(server_socket, &read_set);
-    int max_fd = server_socket;
-    
-    // Add all client sockets
-    for (auto &client : clients)
-    {
-        FD_SET(client.socket, &read_set);
-        if (client.has_data_to_send())
-            FD_SET(client.socket, &write_set);
-        max_fd = std::max(max_fd, client.socket);
+    for (Server &srv : servers) {
+        fds.push_back({srv.listen_fd, POLLIN, 0});  // Listen socket
+        
+        // Each connection's fd (or CGI pipe if waiting)
+        for (Connection &conn : srv.connections) {
+            fds.push_back({
+                conn.getPollFd(),        // Socket or CGI pipe
+                conn.getWantedEvent(),   // POLLIN or POLLOUT
+                0
+            });
+        }
     }
     
-    // Wait for activity (non-blocking if timeout = 0)
-    int activity = select(max_fd + 1, &read_set, &write_set, NULL, &timeout);
+    // Single poll call for all I/O
+    int activity = poll(fds.data(), fds.size(), timeout_ms);
     
-    if (activity > 0)
-    {
-        // New connection incoming
-        if (FD_ISSET(server_socket, &read_set))
-            accept_new_client();
-        
-        // Existing clients have data ready
-        for (auto &client : clients)
-        {
-            if (FD_ISSET(client.socket, &read_set))
-                read_request(client);
-            if (FD_ISSET(client.socket, &write_set))
-                send_response(client);
+    if (activity > 0) {
+        // Process all ready file descriptors
+        for (pollfd &pf : fds) {
+            if (pf.revents == 0) continue;
+            
+            // Handle listen socket (new connection)
+            // or process existing connection
         }
     }
 }
 ```
 
-### Request Parsing State Machine
+**Key Benefits:**
+- ✅ Scales to thousands of concurrent connections
+- ✅ CPU efficient (no busy-waiting)
+- ✅ Fair scheduling between connections
+- ✅ Single-threaded, no synchronization needed
+
+### Session Management
+
+Sessions are managed **server-side** with client-side **cookie-based SessionId**:
 
 ```cpp
-enum RequestState {
-    PARSING_REQUEST_LINE,
-    PARSING_HEADERS,
-    PARSING_BODY,
-    COMPLETE,
-    ERROR
-};
+// Client receives SessionId cookie
+// Server stores session data internally
+SessionManager::accessSession("SessionId_ABC123", serverId);
+→ Returns Session* with user data
 
-class Client {
-    RequestState state;
-    std::string buffer;
-    Request request;
-    
-    bool read_data(int socket)
-    {
-        char chunk[1024];
-        int n = recv(socket, chunk, sizeof(chunk), 0);
-        if (n <= 0) return false;
-        
-        buffer.append(chunk, n);
-        
-        while (!buffer.empty())
-        {
-            switch (state)
-            {
-                case PARSING_REQUEST_LINE:
-                    if (has_complete_line(buffer))
-                        parse_request_line(buffer);
-                    break;
-                    
-                case PARSING_HEADERS:
-                    if (has_complete_headers(buffer))
-                        parse_headers(buffer);
-                    break;
-                    
-                case PARSING_BODY:
-                    if (has_complete_body(buffer, request.content_length))
-                        parse_body(buffer);
-                    state = COMPLETE;
-                    break;
-            }
-            if (state == ERROR || state == COMPLETE)
-                break;
-        }
-        return true;
-    }
-};
+// Session expires after configurable timeout
+// Old sessions are garbage collected
 ```
 
-### Benefits of This Architecture
-
-| Feature | Benefit |
-|---------|---------|
-| **Non-Blocking Sockets** | Single thread handles thousands of connections |
-| **Select/Poll/Epoll** | Efficiently wait for I/O without busy-waiting |
-| **State Machines** | Parse requests incrementally as data arrives |
-| **Memory Efficient** | No thread overhead, minimal per-connection state |
-| **Scalability** | Handles high concurrent load on single core |
-| **Fair Scheduling** | All connections get CPU time |
+The session system enables:
+- **Theme preference persistence** (dark, white, yellow, horror)
+- **Font preference persistence** (arial, horror)
+- **User data tracking** (username from POST form)
+- **Cross-request state** without modifying client-side files
 
 ---
 
-## Key Learning Outcomes
+## 🧪 Testing
 
-✅ Understanding **TCP/IP sockets** and network programming  
-✅ **HTTP/1.1 protocol** implementation and semantics  
-✅ **Non-blocking I/O** and asynchronous programming  
-✅ **I/O multiplexing** (`select`, `poll`, `epoll`)  
-✅ **State machines** for protocol parsing  
-✅ **CGI (Common Gateway Interface)** execution  
-✅ **Process management** (`fork`, `pipe`, `execve`)  
-✅ **Configuration parsing** and server setup  
-✅ **Memory management** and resource cleanup  
-✅ **OOP design** with C++98 classes  
-✅ **Performance optimization** for concurrent connections  
-✅ **HTTP error handling** and edge cases  
+### Browser Testing
 
----
+Simply open your browser and navigate to:
+```
+http://127.0.0.1:8080/
+```
 
-## Testing the Server
+The web interface allows you to:
+- Submit a POST form with your username
+- Switch themes and fonts (saved in session)
+- Upload and download files
+- View CGI output
+- Test DELETE functionality
+- Inspect cookies and session data
+
+### Command-Line Testing
 
 ```bash
-# Start the server
-$ ./webserv
+# Test GET request
+$ curl -v http://127.0.0.1:8080/
 
-# In another terminal, test with curl:
+# Test HEAD request (no body)
+$ curl -I http://127.0.0.1:8080/
 
-# GET request
-$ curl -v http://localhost:8080/index.html
+# Test POST with session
+$ curl -v -c cookies.txt -b cookies.txt \
+  -X POST -d "username=Alice&theme=dark" \
+  http://127.0.0.1:8080/
 
-# POST request with data
-$ curl -X POST -H "Content-Type: application/x-www-form-urlencoded" \
-       -d "name=value&foo=bar" http://localhost:8080/cgi-bin/script.php
+# Test file upload
+$ curl -F "file=@myimage.png" http://127.0.0.1:8080/upload/
 
-# DELETE request
-$ curl -X DELETE http://localhost:8080/uploads/file.txt
+# Test DELETE
+$ curl -X DELETE http://127.0.0.1:8081/todelete/file1.html
 
-# Large file upload
-$ curl -X POST -F "file=@bigfile.zip" http://localhost:8080/upload
+# Test CGI execution
+$ curl http://127.0.0.1:8080/cgi
 
-# Multiple requests on same connection (keep-alive)
-$ curl --keepalive-time 60 http://localhost:8080/file1 http://localhost:8080/file2
+# Stress test with Apache Bench
+$ ab -n 1000 -c 10 http://127.0.0.1:8080/
+```
 
-# Test with ab (Apache Bench)
-$ ab -n 1000 -c 10 http://localhost:8080/
+### Telnet Testing
+
+```bash
+# Manual HTTP request
+$ telnet 127.0.0.1 8080
+Trying 127.0.0.1...
+Connected to 127.0.0.1.
+Escape character is '^]'.
+
+GET / HTTP/1.1
+Host: localhost
+Connection: close
+
+HTTP/1.1 200 OK
+Content-Length: 1234
+Content-Type: text/html
+
+[response body...]
 ```
 
 ---
 
-## Notes
+## 🔧 Key Implementation Details
 
-- The server handles edge cases gracefully (malformed requests, incomplete uploads, client disconnects)
-- HTTP error messages follow standard conventions
-- Memory must be properly managed (no leaks)
-- The program behaves as closely as possible to NGINX for compatibility
-- Configuration file format follows NGINX conventions for familiarity
-- CGI scripts execute in isolated child processes with proper environment setup
-- Keep-alive connections are managed with configurable timeouts
+### Non-Blocking Mode
+
+All sockets are set to non-blocking mode:
+```cpp
+fcntl(socket_fd, F_SETFL, O_NONBLOCK);  // On macOS
+// Or implicit in recv/send with poll readiness check
+```
+
+### Timeout Management
+
+- **Request timeout**: Configurable per connection
+- **CGI timeout**: Prevent hung CGI scripts
+- **Keep-alive timeout**: Allow connection reuse with limits
+
+### Error Handling
+
+- **HTTP error pages**: Custom pages for 404, 403, 500, etc.
+- **Graceful degradation**: Malformed requests handled safely
+- **Resource limits**: Max clients, body size, connection limits
+
+### Memory Management
+
+- No memory leaks (tested with Valgrind)
+- Proper cleanup on connection close
+- Session garbage collection for expired sessions
+- Safe string and pointer operations throughout
+
+---
+
+## 📚 Resources
+
+### HTTP References
+- [HTTP/1.1 RFC 7230-7235](https://tools.ietf.org/html/rfc7230)
+- [HTTP/1.0 RFC 1945](https://tools.ietf.org/html/rfc1945)
+- [NGINX Documentation](https://nginx.org/en/docs/)
+- [MDN: HTTP Protocol](https://developer.mozilla.org/en-US/docs/Web/HTTP)
+
+### System Programming
+- [POSIX Poll](https://man7.org/linux/man-pages/man2/poll.2.html)
+- [Socket Programming](https://man7.org/linux/man-pages/man2/socket.2.html)
+- [Fork and Execve](https://man7.org/linux/man-pages/man2/fork.2.html)
+- [Signals](https://man7.org/linux/man-pages/man7/signal.7.html)
+
+### CGI References
+- [CGI RFC 3875](https://tools.ietf.org/html/rfc3875)
+- [CGI Environment Variables](https://en.wikipedia.org/wiki/Common_Gateway_Interface)
+
+### C++ References
+- [C++98 Standard](https://en.cppreference.com/)
+- [STL Documentation](https://en.cppreference.com/w/cpp)
+
+---
+
+## 🎓 Learning Outcomes
+
+This project demonstrates mastery of:
+
+✅ **Network Programming**
+- Socket creation, binding, listening, accepting
+- Non-blocking I/O and multiplexing (`poll()`, `select()`)
+- TCP/IP protocol stack
+- Connection lifecycle management
+
+✅ **HTTP Protocol**
+- HTTP/1.1 request/response parsing
+- Header processing and validation
+- Status codes and error handling
+- Keep-alive connections
+
+✅ **Concurrent Programming**
+- State machine design for concurrent operations
+- Race condition avoidance without threads
+- Fair scheduling of multiple connections
+- Timeout and resource management
+
+✅ **System Programming**
+- Process management (`fork()`, `execve()`, `waitpid()`)
+- File descriptor management (pipes, sockets)
+- Signal handling (SIGCHLD, SIGINT)
+- File I/O and directory operations
+
+✅ **Software Engineering**
+- Clean architecture with separation of concerns
+- Robust error handling and edge cases
+- Configuration file parsing
+- Stress testing and optimization
+
+✅ **C++ Programming**
+- Object-oriented design with classes
+- Standard library usage (STL containers)
+- Memory management and RAII
+- C++98 compliance without modern features
+
+---
+
+## 📝 Notes
+
+- The server passes **strict compilation checks** with `-Wall -Wextra -Werror -std=c++98`
+- All functionality is implemented in **C++98** without external libraries
+- The server is **production-ready** with proper error handling and timeouts
+- Configuration is **NGINX-inspired** for familiarity and power
+- The code includes **comprehensive comments** for educational value
+- Tested with **modern browsers** and **command-line tools**
+
+---
+
+## 📄 License
+
+This project is part of the 42 curriculum and follows the school's guidelines.
