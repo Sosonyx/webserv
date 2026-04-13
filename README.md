@@ -2,7 +2,7 @@
 
 <div align="center">
 
-*This project has been created as part of the 42 curriculum.*
+ For further information about 42cursus and its projects, see <a href="https://42.fr/le-campus-de-paris/diplome-informatique/"><b>42school</b></a>.
  <p>
     <img src="https://img.shields.io/badge/language-C-blue?style=for-the-badge" />
     <img src="https://img.shields.io/github/repo-size/Sosonyx/minishell?style=for-the-badge&logo=github">
