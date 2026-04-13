@@ -14,14 +14,12 @@ void	Request::clear()
 	_discardBody = false;
 	_receivedBodyBytes = 0;
 
-
 	_isChunked = false;
 	_encodingCheck = false;
 	_chunkDataRead = 0;
 	_chunkExpectSize = 0;
 	_chunkDone = false;
 	_chunkBuffer.clear();
-
 
 	_requestHeader.clear();
 	_header.clear();
@@ -66,7 +64,7 @@ int extractContentLength(const std::string &buffer)
 
 static bool checkCrlf(std::string &chunkBuffer, size_t &requestCode, bool &requestComplete)
 {
-	if (chunkBuffer.size() < 2) // CHECK SIZE BEFORE CHECK CRLF TO AVOID SEGFAULT
+	if (chunkBuffer.size() < 2)
 		return (false);
 	if (chunkBuffer[0] != '\r' || chunkBuffer[1] != '\n')
 	{
@@ -349,7 +347,6 @@ void Request::stateRequestValidity()
 {
 	if (_requestCode != OK)
 		return ;
-	//TODO: if POST and no content length its invalid? 
 	if (_requestHeader["Protocol"] != "HTTP/1.1")
 	{
 		_requestCode = HTTP_VERSION_NOT_SUPPORTED;

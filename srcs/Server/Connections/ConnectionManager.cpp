@@ -32,7 +32,6 @@ size_t	ConnectionManager::_setupPollfds()
 
 	i = 0;
 	j = 0;
-	// std::cout << "Setup Pollfd -- " << std::endl;
 	while (i + j < _maxConnections)
 	{
 		if (i < _masterSockets.size())
@@ -66,7 +65,6 @@ void	ConnectionManager::_openConnection(int fd, const Server &server, const unsi
 /*
 *	TODO: IMPORTANT
 */
-
 void	ConnectionManager::_checkCloseConnections()
 {
 	while (!_to_close.empty())
@@ -82,7 +80,6 @@ void	ConnectionManager::_checkCloseConnections()
 */
 void	ConnectionManager::_closeConnection(std::vector<Connection>::iterator it)
 {
-	// std::cerr << RED << "closing connection on fd " << it->getFd() << END << std::endl;
 	close(it->getFd());
 	_connections.erase(it);
 }
@@ -100,7 +97,6 @@ void	ConnectionManager::_checkOpenConnections()
 				break ;
 			Fcntl(newSocket, F_SETFL, O_NONBLOCK);
 			_openConnection(newSocket, _servers[i], i);
-			// std::cerr << RED << "DEBUG: opening connection on fd " << newSocket << END << "\n";
 		}
 	}
 }
@@ -117,7 +113,6 @@ void	ConnectionManager::_processConnections()
 	{
 		Connection	&currentConnection = *it;
 
-		// std::cout << "revent is : " << _pollfds[i].revents << "\n";
 		currentConnection.process(_pollfds[i].revents);
 		if (currentConnection.getState() == CS_LAUNCH_CGI)
 		{
@@ -125,7 +120,9 @@ void	ConnectionManager::_processConnections()
 			currentConnection.process(0);
 		}
 		if (currentConnection.getState() == CS_CLOSE)
+		{
 			_to_close.push(it);
+		}
 		i++;
 	}
 }
@@ -155,7 +152,6 @@ void	ConnectionManager::loop()
 
 void	ConnectionManager::_reserve(size_t n)
 {
-	// std::cerr << "DEBUG: reserved_connections for " << n << " possibles connections" << std::endl;
 	_connections.reserve(n);
 }
 
@@ -164,8 +160,7 @@ size_t	ConnectionManager::size()
 	return (_connections.size());
 }
 
-//	CONSTRUCTOR & DESTRUCTOR //////////////////////////////////////////////////
-
+//	CONSTRUCTOR & DESTRUCTOR
 ConnectionManager::ConnectionManager(const WebServerConfig &config) : _servers(config.servers)
 {
 }
@@ -194,5 +189,3 @@ ConnectionManager::~ConnectionManager()
 	SessionManager::clean();
 	std::cerr << "DEBUG: Destructor called for class ConnectionManager\n";
 }
-
-///////////////////////////////////////////////////////////////////////////////
