@@ -3,11 +3,13 @@
 <div align="center">
 
 *This project has been created as part of the 42 curriculum.*
-
-[![Language](https://img.shields.io/badge/language-C%2B%2B-blue?style=for-the-badge)](https://cplusplus.com/)
-[![C++ Standard](https://img.shields.io/badge/C%2B%2B-98-blue?style=for-the-badge)](https://en.cppreference.com/)
-[![License](https://img.shields.io/badge/license-MIT-green?style=for-the-badge)](LICENSE)
-
+ <p>
+    <img src="https://img.shields.io/badge/language-C-blue?style=for-the-badge" />
+    <img src="https://img.shields.io/github/repo-size/Sosonyx/minishell?style=for-the-badge&logo=github">
+    <img src="https://img.shields.io/github/languages/count/Sosonyx/minishell?style=for-the-badge" />
+    <img src="https://img.shields.io/github/languages/top/Sosonyx/minishell?style=for-the-badge" />
+    <img src="https://img.shields.io/github/last-commit/Sosonyx/minishell?style=for-the-badge" />
+  </p>
 </div>
 
 ---
