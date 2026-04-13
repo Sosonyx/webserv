@@ -43,7 +43,7 @@ TL;DR: Build a web server from scratch.
 > - Only allowed functions from the subject
 > - No external libraries (Boost forbidden)
 
-**Contributors**: Sosonyx
+**Contributors**: Sosonyx, @Thermow, @theofiette
 
 ---
 
@@ -113,7 +113,7 @@ $ ./webserv config/default.conf
 # In browser or another terminal:
 $ curl http://127.0.0.1:8080/
 $ curl -X POST -d "data" http://127.0.0.1:8080/
-$ curl -X DELETE http://127.0.0.1:8080/file.html
+$ curl -X DELETE http://127.0.0.1:8080/todelete/file1.html
 $ curl -F "file=@image.png" http://127.0.0.1:8080/upload/
 ```
 
@@ -144,7 +144,6 @@ $ curl -c cookies.txt -b cookies.txt \
 # File operations with different hosts
 $ curl http://127.0.0.1:8080/              # Main server
 $ curl http://127.0.0.1:8081/              # Alternative server
-$ curl -X DELETE http://127.0.0.1:8081/file.html
 ```
 
 ---
@@ -180,10 +179,10 @@ $ open http://127.0.0.1:8080
 $ curl -v http://127.0.0.1:8080/
 $ curl -X POST -d "test=data" http://127.0.0.1:8080/
 $ curl -I http://127.0.0.1:8080/          # HEAD request
-$ curl -X DELETE http://127.0.0.1:8080/deleteme.html
+$ curl -X DELETE http://127.0.0.1:8080/todelete/file1.html
 
 # Stress test
-$ ab -n 100 -c 10 http://127.0.0.1:8080/
+$ siege -c 100 -r 10 http://127.0.0.1:8080/
 ```
 
 ---
